@@ -75,8 +75,18 @@
 				// Wireframe ( WireframeGeometry2, LineMaterial )
 
 				let geo = new THREE.IcosahedronGeometry( 20, 1 );
-
-				const geometry = new WireframeGeometry2( geo );
+			    	var canvas = document.createElement('canvas');
+			        canvas.width = canvas.height = 128;
+			        var ctx = canvas.getContext("2d");
+			        ctx.fillStyle='white';
+			        ctx.fillRect(0, 0, 256, 256);
+			        ctx.fillStyle='black';
+			        ctx.font = "30px Arial";
+			        ctx.fillText("B391Y", 10, 50);
+			        let canvasTexture = new THREE.CanvasTexture( canvas );
+			        let material = new THREE.MeshBasicMaterial({ map: canvasTexture });
+				mesh = new THREE.Mesh( geo, material );
+				const geometry = new WireframeGeometry2( mesh );
 
 				matLine = new LineMaterial( {
 
@@ -96,7 +106,7 @@
 				// Line ( THREE.WireframeGeometry, THREE.LineBasicMaterial ) - rendered with gl.LINE
 
 				geo = new THREE.WireframeGeometry( geo );
-
+					
 				matLineBasic = new THREE.LineBasicMaterial( { color: 0x4080ff } );
 				matLineDashed = new THREE.LineDashedMaterial( { scale: 2, dashSize: 1, gapSize: 1 } );
 
